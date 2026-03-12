@@ -115,16 +115,6 @@ func (p *Provider) appendRecordSet(
 		return nil, nil
 	}
 
-	// for single records, use the simple create
-	if len(recordGroup) == 1 {
-		newRecord, err := p.createRecord(ctx, zoneID, recordGroup[0], zone)
-		if err != nil {
-			return nil, err
-		}
-		return []libdns.Record{newRecord}, nil
-	}
-
-	// for multiple records, we need to append to existing set if it exists
 	existingRecords, err := p.getRecords(ctx, zoneID, zone)
 	if err != nil {
 		return nil, err
